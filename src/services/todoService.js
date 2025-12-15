@@ -1,15 +1,22 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/api/todos';
+console.log('📍 [DEBUG] API URL:', process.env.REACT_APP_API_URL);
+
+const API_URL = `${process.env.REACT_APP_API_URL}/api/todos`;
+
+console.log('🔗 [DEBUG] Full API URL:', API_URL);
 
 const todoService = {
   // Get all todos
   getAllTodos: async () => {
     try {
+      console.log('🔍 [DEBUG] Fetching todos from:', API_URL);
       const response = await axios.get(API_URL);
+      console.log('✅ [DEBUG] Todos fetched successfully:', response.data);
       return response.data;
     } catch (error) {
-      console.error('Error fetching todos:', error);
+      console.error('❌ [DEBUG] Error fetching todos:', error.message);
+      console.error('❌ [DEBUG] Error details:', error);
       return [];
     }
   },
@@ -28,10 +35,14 @@ const todoService = {
   // Create todo
   createTodo: async (todoData) => {
     try {
+      console.log('📤 [DEBUG] Sending todo to:', API_URL);
+      console.log('📤 [DEBUG] Data:', todoData);
       const response = await axios.post(API_URL, todoData);
+      console.log('✅ [DEBUG] Todo created:', response.data);
       return response.data;
     } catch (error) {
-      console.error('Error creating todo:', error);
+      console.error('❌ [DEBUG] Error creating todo:', error.message);
+      console.error('❌ [DEBUG] Error details:', error);
       return null;
     }
   },
